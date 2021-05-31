@@ -1,4 +1,5 @@
 const pessoasModel = require('../models/pessoas-model')
+const mongodb = require('../infra/mongodb')
 
 exports.adionarPessoa = (req, res) => {
     pessoasModel.find((err, pessoas) => {

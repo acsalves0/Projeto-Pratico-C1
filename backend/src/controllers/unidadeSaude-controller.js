@@ -1,4 +1,5 @@
 const unidadesModel = require('../models/unidadeSaude-model')
+const mongodb = require('../infra/mongodb')
 
 exports.adionarUnidade = (req, res) => {
     unidadesModel.find((err, unidades) => {

@@ -1,41 +1,43 @@
+require('dotenv').config({
+    path: '.env'
+});
+
 const express = require('express');
-const bodyParser = require('body-parser');
+const sync = require('./infra/postgres').sincronizarPostgres
+
 const app = express();
 
-const port = 3000;
-const hostname = 'localhost';
+const port = process.env.APP_PORT; 
+const hostname = process.env.APP_HOSTNAME;
 
-const mongoose = require('mongoose')
+(async () => await sync())()
+
+const defaultRoutes = require('./routes/default')
 
 const pessoasRoutes = require('./routes/pessoas-routes')
 const unidadesRoutes = require('./routes/unidadeSaude-routes')
-const agendamentosRoutes = require('./routes/agendamento-router')
+const agendamentosRoutes = require('./routes/agendamento-routes')
 
-app.use(bodyParser.urlencoded({
+const pessoasRoutesPg = require('./routes/pessoas-routes-pg')
+const unidadesRoutesPg = require('./routes/unidadeSaude-routes-pg')
+const agendamentosRoutesPg = require('./routes/agendamento-routes-pg')
+
+app.use(express.urlencoded({
     extended: true
 }));
 
-app.use(bodyParser.json());
+app.use(express.json());
+
+app.use('/', defaultRoutes);
 
 app.use('/api/pessoas', pessoasRoutes);
 app.use('/api/unidades', unidadesRoutes);
 app.use('/api/agendamentos', agendamentosRoutes);
 
-mongoose.connect('mongodb://root:faesa123@localhost:27017/Devwebii?authSource=admin', {useNewUrlParser: true, useUnifiedTopology: true});
+app.use('/api/pessoaspg', pessoasRoutesPg);
+app.use('/api/unidadespg', unidadesRoutesPg);
+app.use('/api/agendamentospg', agendamentosRoutesPg);
 
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'Erro ao conectar ao Mongo'));
-db.once('open', function(){
-    console.log('Banco de dados conectado com sucesso');
-});
-
-app.get('/', (req, res) =>{
-    res.json({
-        status: 'Ok',
-        message: 'Servidor rodando'
-    })
-})
 
 app.listen(port, hostname, () =>{
     console.log(`Servidor rodando no endereço: http://${hostname}:${port}`);
