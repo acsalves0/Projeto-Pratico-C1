@@ -1,14 +1,14 @@
 let router = require('express').Router();
 
-const pessoasController = require('../controllers/pessoas-controller')
+const pessoasController = require('../controllers/pessoas-controller');
 
-router.post('/', pessoasController.adionarPessoa);
+router.post('/', pessoasController.adicionarPessoas);
 
 router.get('/', pessoasController.listarPessoas);
 
-router.get('/:id', pessoasController.listarPessoasPorID);
+router.get('/:id', pessoasController.listarPessoasPorId);
 
-router.put('/:id', pessoasController.atualizarPessoa);
+router.put('/:id', pessoasController.atualizarPessoas);
 
 router.delete('/:id', pessoasController.removerPessoas);
 

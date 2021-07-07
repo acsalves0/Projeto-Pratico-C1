@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const unidadeSaudeSchema = mongoose.Schema({
+const unidadeSchema = mongoose.Schema({
     nome_unidade: {
         type: mongoose.Schema.Types.String,
         required: true
@@ -11,28 +11,28 @@ const unidadeSaudeSchema = mongoose.Schema({
     },
     endereco_unidade: {
         type: mongoose.Schema.Types.String,
-        required: true
+        required: false
     },
     telefone_unidade: {
         type: mongoose.Schema.Types.String,
-        required: true
+        required: false
     },
     email_unidade: {
         type: mongoose.Schema.Types.String,
         required: true
     },
-    latlong: {
+    lat_long: {
         type: mongoose.Schema.Types.String,
-        required: true
+        required: false
     },
-    data_alteracao:{
+    data_alteracao: {
         type: mongoose.Schema.Types.Date,
         default: null
     }
 });
 
-let UnidadeSaude = module.exports = mongoose.model('unidadeSaude', unidadeSaudeSchema);
+let Unidade = module.exports = mongoose.model('unidade', unidadeSchema);
 
-module.exports.get = function(callback, limit) {
-    UnidadeSaude.find(callback).limit(limit)
+module.exports.get = function(callback, limit){
+    Unidade.find(callback).limit(limit);
 }

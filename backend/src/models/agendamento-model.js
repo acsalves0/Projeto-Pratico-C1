@@ -5,7 +5,7 @@ const agendamentoSchema = mongoose.Schema({
         type: mongoose.Schema.Types.Date,
         required: true
     },
-    necessidade_especiais: {
+    necessidades_especiais: {
         type: mongoose.Schema.Types.Boolean,
         required: true
     },
@@ -21,6 +21,6 @@ const agendamentoSchema = mongoose.Schema({
 
 let Agendamento = module.exports = mongoose.model('agendamento', agendamentoSchema);
 
-module.exports.get = function(callback, limit) {
-    Agendamento.find(callback).limit(limit)
+module.exports.get = function(callback, limit){
+    Agendamento.find(callback).limit(limit);
 }

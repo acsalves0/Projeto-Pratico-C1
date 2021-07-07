@@ -1,10 +1,10 @@
 let router = require('express').Router();
 
-router.get('/', function (req, res){
+router.get('/', function (req, res) {
     res.json({
-        status: 'Ok',
+        status: 'ok',
         message: 'Servidor da unidade de saúde funcionando'
-    })
-})
+    });
+});
 
 module.exports = router;
